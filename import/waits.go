@@ -9,6 +9,8 @@ import (
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/BurntSushi/toml"
+	"path/filepath"
+	"os"
 )
 
 type Config struct {
@@ -37,7 +39,8 @@ type DollywoodRide struct {
 
 func main() {
 	var config Config
-	if _, err := toml.DecodeFile("config.toml", &config); err != nil {
+	configFile := fmt.Sprintf("%s/config.toml", filepath.Abs(filepath.Dir(os.Args[0])))
+	if _, err := toml.DecodeFile(configFile, &config); err != nil {
 		log.Fatal(err)
 	}
 	db_host := config.Database.Host
