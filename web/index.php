@@ -2,4 +2,4 @@
 
 require_once '../config.php';
 
-$twig->render('pages/home.html.twig');
+echo $twig->render('pages/home.html.twig');
