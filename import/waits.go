@@ -39,7 +39,8 @@ type DollywoodRide struct {
 
 func main() {
 	var config Config
-	configFile := fmt.Sprintf("%s/config.toml", filepath.Abs(filepath.Dir(os.Args[0])))
+	currentDir, err := filepath.Abs(filepath.Dir(os.Args[0]));
+	configFile := fmt.Sprintf("%s/config.toml", currentDir)
 	if _, err := toml.DecodeFile(configFile, &config); err != nil {
 		log.Fatal(err)
 	}
