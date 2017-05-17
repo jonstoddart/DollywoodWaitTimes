@@ -19,4 +19,8 @@ $statement->execute();
 $waits = $statement->fetchAll(PDO::FETCH_ASSOC);
 //$waits = $entityManager->getRepository('RideWait')->getLatestWaits();
 
+foreach ($waits as $key=>$wait) {
+    $waits[$key]['created_at'] = date('D M j, g:ia', strtotime('-5 hours', strtotime($wait['created_at'])));
+}
+
 echo $twig->render('pages/home.html.twig', ['waits' => $waits]);
