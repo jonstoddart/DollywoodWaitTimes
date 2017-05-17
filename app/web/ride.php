@@ -6,14 +6,10 @@ $db = new PDO("mysql:host={$config['database']['host']};port={$config['database'
 
 $ride_name = $_GET['ride'];
 
-$sql = 'SELECT * FROM ride_waits WHERE ride_name = :ride_name ORDER BY created_at DESC';
+$sql = 'SELECT ride_name, ride_status, wait_time, DATE_FORMAT(DATE_SUB(created_at, INTERVAL 5 HOUR), "%a %b %e, %l:%i%p") AS formatted_created_at FROM ride_waits WHERE ride_name = :ride_name ORDER BY created_at DESC';
 $statement = $db->prepare($sql);
 $statement->execute([':ride_name' => $ride_name]);
 $waits = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-foreach ($waits as $key=>$wait) {
-    $waits[$key]['created_at'] = date('D M j, g:ia', strtotime('-5 hours', strtotime($wait['created_at'])));
-}
 
 $graph_waits = array_reverse($waits);
 

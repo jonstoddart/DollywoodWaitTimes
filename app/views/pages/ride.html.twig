@@ -6,6 +6,9 @@
 
 {% block page %}
     {{ ride_name }} Wait Times | <a href="/">Back to all rides</a>
+    <div style="padding-right: 20px; max-width: 1400px;">
+        <canvas id="ride-chart" width="800" height="100"></canvas>
+    </div>
     <table>
         <thead>
             <tr>
@@ -17,14 +20,11 @@
         <tbody>
             {% for wait in waits %}
             <tr>
-                <td>{{ wait.created_at }}</td>
+                <td>{{ wait.formatted_created_at }}</td>
                 <td>{{ wait.ride_status }}</td>
                 <td>{{ wait.wait_time }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    <div style="padding-right: 20px;">
-        <canvas id="ride-chart" width="800" height="100"></canvas>
-    </div>
 {% endblock %}

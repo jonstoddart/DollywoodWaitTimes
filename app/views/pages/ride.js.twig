@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     new Chart(document.getElementById("ride-chart"), {
         type: "line",
         data: {
-            labels: [{% for wait in graph_waits %}"{{ wait.created_at }}",{% endfor %}],
+            labels: [{% for wait in graph_waits %}"{{ wait.formatted_created_at }}",{% endfor %}],
             datasets: [{
                 label: "{{ ride_name }}",
                 fill: false,

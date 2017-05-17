@@ -6,6 +6,9 @@
 
 {% block page %}
     Dollywood Wait Times
+    <div style="padding-right: 20px; max-width: 1400px;">
+        <canvas id="ride-chart" width="800" height="100"></canvas>
+    </div>
     <table>
         <thead>
             <tr>
@@ -21,10 +24,9 @@
                 <td><a href="ride.php?ride={{ wait.ride_name }}">{{ wait.ride_name }}</a></td>
                 <td>{{ wait.ride_status }}</td>
                 <td>{{ wait.wait_time }}</td>
-                <td>{{ wait.created_at }}</td>
+                <td>{{ wait.formatted_created_at }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    <canvas id="ride-chart" width="400" height="400"></canvas>
 {% endblock %}
