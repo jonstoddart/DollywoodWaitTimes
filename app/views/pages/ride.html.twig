@@ -1,7 +1,7 @@
 {% extends 'site.html.twig' %}
 
 {% block page %}
-    Dollywood Wait Times
+    {{ ride_name }} Wait Times
     <table>
         <thead>
             <tr>
@@ -14,10 +14,9 @@
         <tbody>
             {% for wait in waits %}
             <tr>
-                <td><a href="ride.php?ride={{ wait.ride_name }}">{{ wait.ride_name }}</a></td>
+                <td>{{ wait.updated_at }}</td>
                 <td>{{ wait.ride_status }}</td>
                 <td>{{ wait.wait_time }}</td>
-                <td>{{ wait.updated_at }}</td>
             </tr>
             {% endfor %}
         </tbody>

@@ -14,7 +14,9 @@ $sql = '
             GROUP BY ride_name
         ) RW_ID ON RW.ride_wait_id = RW_ID.max_id
     ';
-$waits = $db->query($sql);
+$statement = $db->prepare($sql);
+$statement->execute();
+$waits = $statement->fetchAll(PDO::FETCH_ASSOC);
 //$waits = $entityManager->getRepository('RideWait')->getLatestWaits();
 
 echo $twig->render('pages/home.html.twig', ['waits' => $waits]);
