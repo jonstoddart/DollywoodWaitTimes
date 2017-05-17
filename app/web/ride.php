@@ -2,7 +2,7 @@
 
 require_once '../config.php';
 
-$db = new PDO("mysql:host={$config['database']['host']};port={$config['database']['port']};dbname={$config['database']['database']}", $config['database']['username'], $config['database']['password']);
+$db = new PDO("mysql:host={$config['database']['host']};port={$config['database']['port']};dbname={$config['database']['dbname']}", $config['database']['user'], $config['database']['password']);
 
 $ride_name = $_GET['ride'];
 
