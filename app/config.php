@@ -20,7 +20,7 @@ $config = [
     ]
 ];
 
-$entityConfig = Setup::createAnnotationMetadataConfiguration([__DIR__ . '/entities'], $config['environment'] == 'development');
+$entityConfig = Setup::createAnnotationMetadataConfiguration([__DIR__ . '/src'], $config['environment'] == 'development');
 $entityManager = EntityManager::create($config['database'], $entityConfig);
 
 $loader = new Twig_Loader_Filesystem(__DIR__ . '/views');
