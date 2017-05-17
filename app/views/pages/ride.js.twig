@@ -2,13 +2,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
     new Chart(document.getElementById("ride-chart"), {
         type: "line",
         data: {
-            labels: ["{{ ride_name }}"],
+            labels: ["Wait Time"],
             datasets: [{
-                label: "Wait Time",
+                label: "{{ ride_name }}",
                 fill: false,
-                data: [0{% for wait in waits %}, {{ wait.wait_time }}{% endfor %}],
+                data: [{% for wait in waits %}{{ wait.wait_time }},{% endfor %}],
                 borderWidth: 1,
-                borderColor: "rgba(255, 0, 0)"
+                borderColor: "rgba(255, 0, 0, 1)",
+                pointHoverBackgroundColor: "rgba(255, 0, 0, 1)",
+                backgroundColor: "rgba(255, 0, 0, 1)"
             }]
         },
         responsive: true
