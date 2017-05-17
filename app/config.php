@@ -6,7 +6,7 @@ use Yosymfony\Toml\Toml;
 
 require_once 'vendor/autoload.php';
 
-$configFile = Toml::Parse('config.toml');
+$configFile = Toml::Parse(__DIR__ . '/config.toml');
 
 $config = [
     'environment' => $configFile['app']['environment'],
