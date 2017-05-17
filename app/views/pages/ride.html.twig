@@ -5,16 +5,15 @@
     <table>
         <thead>
             <tr>
-                <td>Ride</td>
+                <td>Updated</td>
                 <td>Status</td>
                 <td>Wait</td>
-                <td>Updated</td>
             </tr>
         </thead>
         <tbody>
             {% for wait in waits %}
             <tr>
-                <td>{{ wait.updated_at }}</td>
+                <td>{{ wait.created_at }}</td>
                 <td>{{ wait.ride_status }}</td>
                 <td>{{ wait.wait_time }}</td>
             </tr>

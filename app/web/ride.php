@@ -6,9 +6,9 @@ $db = new PDO("mysql:host={$config['database']['host']};port={$config['database'
 
 $ride_name = $_GET['ride'];
 
-$sql = 'SELECT * FROM ride_waits WHERE ride_name = :ride_name ORDER BY updated_at DESC';
+$sql = 'SELECT * FROM ride_waits WHERE ride_name = :ride_name ORDER BY created_at DESC';
 $statement = $db->prepare($sql);
-$statement->execute(['ride_name' => $ride_name]);
+$statement->execute([':ride_name' => $ride_name]);
 $waits = $statement->fetchAll(PDO::FETCH_ASSOC);
 
 echo $twig->render('pages/ride.html.twig', ['ride_name' => $ride_name, 'waits' => $waits]);
