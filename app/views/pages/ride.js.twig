@@ -1,6 +1,5 @@
-var ctx = document.getElementById("ride-chart");
-var myChart = new Chart({
-    tyoe: "line",
+new Chart(document.getElementById("ride-chart"), {
+    type: "line",
     data: {
         labels: ["{{ ride_name }}"],
         datasets: [{
