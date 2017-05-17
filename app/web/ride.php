@@ -11,4 +11,8 @@ $statement = $db->prepare($sql);
 $statement->execute([':ride_name' => $ride_name]);
 $waits = $statement->fetchAll(PDO::FETCH_ASSOC);
 
+foreach ($waits as $key=>$wait) {
+    $waits[$key]['created_at'] = date('D M j, g:ia', strtotime('-5 hours', strtotime($wait['created_at'])));
+}
+
 echo $twig->render('pages/ride.html.twig', ['ride_name' => $ride_name, 'waits' => $waits]);
