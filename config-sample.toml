@@ -1,0 +1,12 @@
+[app]
+environment="development"
+
+[database]
+host = "localhost"
+username = "user"
+password = "password"
+database = "dbname"
+port = 3306
+
+[api]
+url = "http://pulse.hfecorp.com/api/waitTimes/1"
