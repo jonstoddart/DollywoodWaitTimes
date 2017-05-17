@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @Entity @Table(name="ride_waits")
+ * @Entity(repositoryClass="RideWaitRepository") @Table(name="ride_waits")
  **/
 class RideWait
 {
