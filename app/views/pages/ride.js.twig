@@ -2,11 +2,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
     new Chart(document.getElementById("ride-chart"), {
         type: "line",
         data: {
-            labels: [{% for wait in waits %}"{{ wait.created_at }}",{% endfor %}],
+            labels: [{% for wait in graph_waits %}"{{ wait.created_at }}",{% endfor %}],
             datasets: [{
                 label: "{{ ride_name }}",
                 fill: false,
-                data: [{% for wait in waits %}{{ wait.wait_time }},{% endfor %}],
+                data: [{% for wait in graph_waits %}{{ wait.wait_time }},{% endfor %}],
                 borderWidth: 1,
                 borderColor: "rgba(255, 0, 0, 1)",
                 pointHoverBackgroundColor: "rgba(255, 0, 0, 1)",

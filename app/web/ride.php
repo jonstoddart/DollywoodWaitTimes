@@ -15,4 +15,6 @@ foreach ($waits as $key=>$wait) {
     $waits[$key]['created_at'] = date('D M j, g:ia', strtotime('-5 hours', strtotime($wait['created_at'])));
 }
 
-echo $twig->render('pages/ride.html.twig', ['ride_name' => $ride_name, 'waits' => $waits]);
+$graph_waits = array_reverse($waits);
+
+echo $twig->render('pages/ride.html.twig', ['ride_name' => $ride_name, 'waits' => $waits, 'graph_waits' => $graph_waits]);
