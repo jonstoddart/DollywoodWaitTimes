@@ -1,0 +1,7 @@
+{
+    "require": {
+        "twig/twig": "^2.3",
+        "doctrine/orm": "^2.5",
+        "yosymfony/toml": "^0.3.3"
+    }
+}

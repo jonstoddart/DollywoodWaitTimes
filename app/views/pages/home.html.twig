@@ -1,0 +1,25 @@
+{% extends 'site.html.twig' %}
+
+{% block page %}
+    Dollywood Wait Times
+    <table>
+        <thead>
+            <tr>
+                <td>Ride</td>
+                <td>Status</td>
+                <td>Wait</td>
+                <td>Updated</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for wait in waits %}
+            <tr>
+                <td>{% wait.rideName %}</td>
+                <td>{% wait.rideStatus %}</td>
+                <td>{% wait.waitTime %}</td>
+                <td>{% wait.updatedAt %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
