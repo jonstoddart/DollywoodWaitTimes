@@ -1,5 +1,9 @@
 {% extends 'site.html.twig' %}
 
+{% block javascript %}
+{% include 'home.js.twig' %}
+{% endblock %}
+
 {% block page %}
     Dollywood Wait Times
     <table>
@@ -22,4 +26,5 @@
             {% endfor %}
         </tbody>
     </table>
+    <canvas id="ride-chart" width="400" height="400"></canvas>
 {% endblock %}

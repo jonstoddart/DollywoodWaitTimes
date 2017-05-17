@@ -1,0 +1,13 @@
+var ctx = "ride-chart";
+var myChart = new Chart({
+    tyoe: "line",
+    data: {
+        labels: ["{{ ride_name }}"],
+        datasets: [{
+            label: "Wait Time",
+            fill: false,
+            data: [0{% for wait in waits %}, {{ wait.wait_time }}{% endfor %}],
+            borderWidth: 1
+        }]
+    }
+})

@@ -1,5 +1,9 @@
 {% extends 'site.html.twig' %}
 
+{% block javascript %}
+    {% include 'home.js.twig' %}
+{% endblock %}
+
 {% block page %}
     {{ ride_name }} Wait Times | <a href="/">Back to all rides</a>
     <table>
