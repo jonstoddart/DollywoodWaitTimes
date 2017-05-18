@@ -1,18 +1,22 @@
-/*document.addEventListener("DOMContentLoaded", function(event) {
+document.addEventListener("DOMContentLoaded", function(event) {
     new Chart(document.getElementById("ride-chart"), {
         type: "line",
         data: {
-            labels: [{% for wait in graph_waits %}"{{ wait.formatted_created_at }}",{% endfor %}],
-            datasets: [{
-                label: "{{ ride_name }}",
-                fill: false,
-                data: [{% for wait in graph_waits %}{{ wait.wait_time }},{% endfor %}],
-                borderWidth: 1,
-                borderColor: "rgba(255, 0, 0, 1)",
-                pointHoverBackgroundColor: "rgba(255, 0, 0, 1)",
-                backgroundColor: "rgba(255, 0, 0, 1)"
-            }]
+            labels: [{% for time in all_waits.times %}"{{ time }}",{% endfor %}],
+            datasets: [
+                {% for ride_name, waits in all_waits.rides %}
+                    {
+                        label: "{{ ride_name }}",
+                        fill: false,
+                        data: [{% for time, wait in waits %}{% if time != 'color' %}{{ wait.wait_time }},{% endif %}{% endfor %}],
+                        borderWidth: 1,
+                        borderColor: "{{ waits.color }}",
+                        pointHoverBackgroundColor: "{{ waits.color }}",
+                        backgroundColor: "{{ waits.color }}"
+                    },
+                {% endfor %}
+            ]
         },
         responsive: true
     })
-});*/
+});
