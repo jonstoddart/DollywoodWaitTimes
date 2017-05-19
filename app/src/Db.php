@@ -16,7 +16,9 @@ class Db
         }
 
         $statement = $this->db->prepare($sql);
-        $statement->execute($params);
+        if (!$statement->execute($params)) {
+            error_log($statement->errorInfo()[2]);
+        }
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 }
