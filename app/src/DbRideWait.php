@@ -45,7 +45,10 @@ class DbRideWait
         $sql = '
             SELECT ride_name, ride_status, wait_time, DATE_FORMAT(DATE_SUB(created_at, INTERVAL 5 HOUR), "%a %b %e, %l:%i%p") AS formatted_created_at
             FROM ride_waits
-            WHERE DATE(DATE_SUB(created_at, INTERVAL 5 HOUR)) = DATE(:date)
+            WHERE created_at BETWEEN
+                (SELECT MIN(created_at) FROM ride_waits WHERE DATE(DATE_SUB(created_at, INTERVAL 5 HOUR)) = DATE(:date) AND ride_status = "OPEN")
+                AND
+                (SELECT MAX(created_at) FROM ride_waits WHERE DATE(DATE_SUB(created_at, INTERVAL 5 HOUR)) = DATE(:date) AND ride_status = "OPEN")
             ORDER BY ride_name ASC, created_at ASC
         ';
 
@@ -89,7 +92,11 @@ class DbRideWait
         $sql = '
             SELECT ride_status, wait_time, DATE_FORMAT(DATE_SUB(created_at, INTERVAL 5 HOUR), "%a %b %e, %l:%i%p") AS formatted_created_at
             FROM ride_waits
-            WHERE DATE(DATE_SUB(created_at, INTERVAL 5 HOUR)) = DATE(:date) AND ride_name = :ride_name
+            WHERE created_at BETWEEN
+                (SELECT MIN(created_at) FROM ride_waits WHERE DATE(DATE_SUB(created_at, INTERVAL 5 HOUR)) = DATE(:date) AND ride_status = "OPEN")
+                AND
+                (SELECT MAX(created_at) FROM ride_waits WHERE DATE(DATE_SUB(created_at, INTERVAL 5 HOUR)) = DATE(:date) AND ride_status = "OPEN")
+            AND ride_name = :ride_name
             ORDER BY ride_name ASC, created_at ASC
         ';
 
