@@ -4,12 +4,18 @@ require_once '../config.php';
 require_once '../src/Db.php';
 require_once '../src/DbRideWait.php';
 
+$day = $_GET['day'];
+
+if (empty($day)) {
+    $day = 'now';
+}
+
 //$waits = $entityManager->getRepository('RideWait')->getLatestWaits();
 
 $DbRideWait = new DbRideWait($db);
 
 $waits = $DbRideWait->getLatestWaits();
-$all_waits = $DbRideWait->getDailyWaitsByRide(new \DateTime());
+$all_waits = $DbRideWait->getDailyWaitsByRide(new \DateTime($day));
 $colors = [
     'rgba(255, 0, 0, 1)',
     'rgba(0, 0, 255, 1)',

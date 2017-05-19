@@ -76,6 +76,37 @@ class DbRideWait
     }
 
     /**
+     * @param DateTime $date
+     * @param string $ride_name
+     * @return array
+     */
+    public function getDailyWaitsForRide(\DateTime $date, $ride_name)
+    {
+        $sql = '
+            SELECT ride_status, wait_time, DATE_FORMAT(DATE_SUB(created_at, INTERVAL 5 HOUR), "%a %b %e, %l:%i%p") AS formatted_created_at
+            FROM ride_waits
+            WHERE DATE(DATE_SUB(created_at, INTERVAL 5 HOUR)) = DATE(:date) AND ride_name = :ride_name
+            ORDER BY ride_name ASC, created_at ASC
+        ';
+
+        return $this->db->query($sql, [':date' => $date->format('Y-m-d H:i:s'), ':ride_name' => $ride_name]);
+    }
+
+    /**
+     * @return array
+     */
+    public function getAvailableDates()
+    {
+        $sql = '
+            SELECT DISTINCT DATE_FORMAT(DATE_SUB(created_at, INTERVAL 5 HOUR), "%a %b %e, %l:%i%p") AS formatted_created_at
+            FROM ride_waits
+            ORDER BY created_at DESC
+        ';
+
+        return $this->db->query($sql);
+    }
+
+    /**
      * @param $a
      * @param $b
      * @return int
