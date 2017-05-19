@@ -63,13 +63,17 @@ class DbRideWait
         }
 
         $return['times'] = array_unique($return['times']);
-        usort($return['times'], array('DbRideWait', 'sortTimes'));
+        usort($return['times'], ['DbRideWait', 'sortTimes']);
         foreach ($return['times'] as $time) {
             foreach (array_keys($return['rides']) as $ride) {
                 if (empty($return['rides'][$ride][$time])) {
                     $return['rides'][$ride][$time] = ['ride_status' => 'UNKNOWN', 'wait_time' => 0];
                 }
             }
+        }
+
+        foreach (array_keys($return['rides']) as $ride) {
+            uksort($return['rides'][$ride], ['DbRideWait', 'sortRides']);
         }
 
         return $return;
@@ -112,6 +116,16 @@ class DbRideWait
      * @return int
      */
     public static function sortTimes($a, $b)
+    {
+        return strtotime($a) > strtotime($b) ? 1 : -1;
+    }
+
+    /**
+     * @param $a
+     * @param $b
+     * @return int
+     */
+    public static function sortRides($a, $b)
     {
         return strtotime($a) > strtotime($b) ? 1 : -1;
     }
