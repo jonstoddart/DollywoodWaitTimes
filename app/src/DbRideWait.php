@@ -43,7 +43,11 @@ class DbRideWait
     public function getDailyWaitsByRide(\DateTime $date)
     {
         $sql = '
-            SELECT ride_name, ride_status, wait_time, DATE_FORMAT(DATE_SUB(created_at, INTERVAL 5 HOUR), "%a %b %e, %l:%i%p") AS formatted_created_at
+            SELECT
+                ride_name,
+                ride_status,
+                CASE WHEN ride_status = "OPEN" THEN wait_time ELSE "" END AS wait_time,
+                DATE_FORMAT(DATE_SUB(created_at, INTERVAL 5 HOUR), "%a %b %e, %l:%i%p") AS formatted_created_at
             FROM ride_waits
             WHERE created_at BETWEEN
                 (SELECT MIN(created_at) FROM ride_waits WHERE DATE(DATE_SUB(created_at, INTERVAL 5 HOUR)) = DATE(:date) AND ride_status = "OPEN")
@@ -90,7 +94,10 @@ class DbRideWait
     public function getDailyWaitsForRide(\DateTime $date, $ride_name)
     {
         $sql = '
-            SELECT ride_status, wait_time, DATE_FORMAT(DATE_SUB(created_at, INTERVAL 5 HOUR), "%a %b %e, %l:%i%p") AS formatted_created_at
+            SELECT
+                ride_status,
+                CASE WHEN ride_status = "OPEN" THEN wait_time ELSE "" END AS wait_time,
+                DATE_FORMAT(DATE_SUB(created_at, INTERVAL 5 HOUR), "%a %b %e, %l:%i%p") AS formatted_created_at
             FROM ride_waits
             WHERE created_at BETWEEN
                 (SELECT MIN(created_at) FROM ride_waits WHERE DATE(DATE_SUB(created_at, INTERVAL 5 HOUR)) = DATE(:date) AND ride_status = "OPEN")
