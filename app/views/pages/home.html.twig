@@ -9,6 +9,14 @@
     <div style="padding-right: 20px; max-width: 1400px;">
         <canvas id="ride-chart" width="800" height="200"></canvas>
     </div>
+    <form method="GET">
+        Date:
+        <select name="day" onchange="this.form.submit()">
+            {% for date in dates %}
+                <option value="{{ date.formatted_created_at }}"{% if date.formatted_created_at == day %} selected="selected"{% endif %}>{{ date.formatted_created_at }}</option>
+            {% endfor %}
+        </select>
+    </form>
     <table>
         <thead>
             <tr>

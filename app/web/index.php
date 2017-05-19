@@ -7,13 +7,14 @@ require_once '../src/DbRideWait.php';
 $day = $_GET['day'];
 
 if (empty($day)) {
-    $day = 'now';
+    $day = date('Y-m-d');
 }
 
 //$waits = $entityManager->getRepository('RideWait')->getLatestWaits();
 
 $DbRideWait = new DbRideWait($db);
 
+$dates = $DbRideWait->getAvailableDates();
 $waits = $DbRideWait->getLatestWaits();
 $all_waits = $DbRideWait->getDailyWaitsByRide(new \DateTime($day));
 $colors = [
@@ -38,4 +39,4 @@ foreach ($all_waits['rides'] as $name => $ride_waits) {
     $all_waits['rides'][$name]['color'] = $colors[$i++];
 }
 
-echo $twig->render('pages/home.html.twig', ['waits' => $waits, 'all_waits' => $all_waits]);
+echo $twig->render('pages/home.html.twig', ['waits' => $waits, 'all_waits' => $all_waits, 'day' => $day, 'dates' => $dates]);

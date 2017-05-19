@@ -98,9 +98,9 @@ class DbRideWait
     public function getAvailableDates()
     {
         $sql = '
-            SELECT DISTINCT DATE_FORMAT(DATE_SUB(created_at, INTERVAL 5 HOUR), "%a %b %e, %l:%i%p") AS formatted_created_at
+            SELECT DISTINCT DATE_FORMAT(DATE_SUB(created_at, INTERVAL 5 HOUR), "%Y-%m-%d") AS formatted_created_at
             FROM ride_waits
-            ORDER BY created_at DESC
+            ORDER BY formatted_created_at DESC
         ';
 
         return $this->db->query($sql);
