@@ -6,9 +6,6 @@
 
 {% block page %}
     {{ ride_name }} | <a href="/">Back to all rides</a>
-    <div style="padding-right: 20px; max-width: 1400px;">
-        <canvas id="ride-chart" width="800" height="100"></canvas>
-    </div>
     <form method="GET">
         Date:
         <input type="hidden" name="ride" value="{{ ride_name }}" />
@@ -18,6 +15,9 @@
             {% endfor %}
         </select>
     </form>
+    <div style="padding-right: 20px; max-width: 1400px; margin-bottom: 30px;">
+        <canvas id="ride-chart" width="800" height="100"></canvas>
+    </div>
     <table>
         <thead>
             <tr>

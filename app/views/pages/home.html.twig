@@ -5,9 +5,6 @@
 {% endblock %}
 
 {% block page %}
-    <div style="padding-right: 20px; max-width: 1400px;">
-        <canvas id="ride-chart" width="800" height="200"></canvas>
-    </div>
     <form method="GET">
         Date:
         <select name="day" onchange="this.form.submit()">
@@ -16,6 +13,9 @@
             {% endfor %}
         </select>
     </form>
+    <div style="padding-right: 20px; max-width: 1400px; margin-bottom: 30px;">
+        <canvas id="ride-chart" width="800" height="200"></canvas>
+    </div>
     <table>
         <thead>
             <tr>
