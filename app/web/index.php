@@ -4,9 +4,10 @@ require_once '../config.php';
 require_once '../src/Db.php';
 require_once '../src/DbRideWait.php';
 
-$day = $_GET['day'];
-
-if (empty($day)) {
+if (!empty($_GET['day'])) {
+    $day = $_GET['day'];
+}
+else {
     $day = date('Y-m-d');
 }
 
