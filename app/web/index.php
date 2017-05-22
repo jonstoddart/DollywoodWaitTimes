@@ -4,16 +4,16 @@ require_once '../config.php';
 require_once '../src/Db.php';
 require_once '../src/DbRideWait.php';
 
+$DbRideWait = new DbRideWait($db);
+
 if (!empty($_GET['day'])) {
     $day = $_GET['day'];
 }
 else {
-    $day = date('Y-m-d');
+    $day = date('Y-m-d', strtotime($DbRideWait->getAvailableDates()[0]['formatted_created_at']));
 }
 
 //$waits = $entityManager->getRepository('RideWait')->getLatestWaits();
-
-$DbRideWait = new DbRideWait($db);
 
 $dates = $DbRideWait->getAvailableDates();
 $waits = $DbRideWait->getLatestWaits();

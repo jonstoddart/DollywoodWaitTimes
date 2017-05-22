@@ -4,15 +4,22 @@ require_once '../config.php';
 require_once '../src/Db.php';
 require_once '../src/DbRideWait.php';
 
-$ride_name = $_GET['ride'];
+$DbRideWait = new DbRideWait($db);
+
+if (!empty($_GET['ride'])) {
+    $ride_name = $_GET['ride'];
+}
+else {
+    header('Location: /');
+    exit;
+}
+
 if (!empty($_GET['day'])) {
     $day = $_GET['day'];
 }
 else {
-    $day = date('Y-m-d');
+    $day = date('Y-m-d', strtotime($DbRideWait->getAvailableDates()[0]['formatted_created_at']));
 }
-
-$DbRideWait = new DbRideWait($db);
 
 $dates = $DbRideWait->getAvailableDates();
 $waits = $DbRideWait->getDailyWaitsForRide(new \DateTime($day), $ride_name);

@@ -5,35 +5,39 @@
 {% endblock %}
 
 {% block page %}
-    {{ ride_name }} | <a href="/">Back to all rides</a>
+    <h4>{{ ride_name }} | <a href="/?day={{ day }}">Back to all rides</a></h4>
     <form method="GET">
-        Date:
-        <input type="hidden" name="ride" value="{{ ride_name }}" />
-        <select name="day" onchange="this.form.submit()">
-            {% for date in dates %}
-                <option value="{{ date.formatted_created_at }}"{% if date.formatted_created_at == day %} selected="selected"{% endif %}>{{ date.formatted_created_at }}</option>
-            {% endfor %}
-        </select>
+        <h5>
+            Date:
+            <input type="hidden" name="ride" value="{{ ride_name }}" />
+            <select name="day" onchange="this.form.submit()">
+                {% for date in dates %}
+                    <option value="{{ date.formatted_created_at }}"{% if date.formatted_created_at == day %} selected="selected"{% endif %}>{{ date.formatted_created_at }}</option>
+                {% endfor %}
+            </select>
+        </h5>
     </form>
-    <div style="padding-right: 20px; max-width: 1400px; margin-bottom: 30px;">
-        <canvas id="ride-chart" width="800" height="100"></canvas>
+    <div id="chart-container">
+        <canvas id="ride-chart" width="800" height="150"></canvas>
     </div>
-    <table>
-        <thead>
-            <tr>
-                <td>Updated</td>
-                <td>Status</td>
-                <td>Wait</td>
-            </tr>
-        </thead>
-        <tbody>
-            {% for wait in waits %}
-            <tr>
-                <td>{{ wait.formatted_created_at }}</td>
-                <td>{{ wait.ride_status }}</td>
-                <td>{{ wait.wait_time }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="col-md-4">
+        <table class="table table-condensed table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <td>Updated</td>
+                    <td>Status</td>
+                    <td>Wait</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for wait in waits %}
+                <tr>
+                    <td>{{ wait.formatted_created_at }}</td>
+                    <td>{{ wait.ride_status }}</td>
+                    <td>{{ wait.wait_time }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
