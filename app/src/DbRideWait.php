@@ -23,7 +23,7 @@ class DbRideWait
     public function getLatestWaits()
     {
         $sql = '
-            SELECT RW.ride_name, RW.ride_status, RW.wait_time, DATE_FORMAT(DATE_SUB(RW.created_at, INTERVAL 5 HOUR), "%a %b %e, %l:%i%p") AS formatted_created_at
+            SELECT RW.ride_name, RW.ride_status, RW.wait_time, DATE_FORMAT(DATE_SUB(RW.created_at, INTERVAL 4 HOUR), "%a %b %e, %l:%i%p") AS formatted_created_at
             FROM ride_waits RW
             INNER JOIN (
                 SELECT ride_name,
@@ -47,12 +47,12 @@ class DbRideWait
                 ride_name,
                 ride_status,
                 CASE WHEN ride_status = "OPEN" THEN wait_time ELSE "" END AS wait_time,
-                DATE_FORMAT(DATE_SUB(created_at, INTERVAL 5 HOUR), "%a %b %e, %l:%i%p") AS formatted_created_at
+                DATE_FORMAT(DATE_SUB(created_at, INTERVAL 4 HOUR), "%a %b %e, %l:%i%p") AS formatted_created_at
             FROM ride_waits
             WHERE created_at BETWEEN
-                (SELECT MIN(created_at) FROM ride_waits WHERE DATE(DATE_SUB(created_at, INTERVAL 5 HOUR)) = DATE(:date) AND ride_status = "OPEN")
+                (SELECT MIN(created_at) FROM ride_waits WHERE DATE(DATE_SUB(created_at, INTERVAL 4 HOUR)) = DATE(:date) AND ride_status = "OPEN")
                 AND
-                (SELECT MAX(created_at) FROM ride_waits WHERE DATE(DATE_SUB(created_at, INTERVAL 5 HOUR)) = DATE(:date) AND ride_status = "OPEN")
+                (SELECT MAX(created_at) FROM ride_waits WHERE DATE(DATE_SUB(created_at, INTERVAL 4 HOUR)) = DATE(:date) AND ride_status = "OPEN")
             ORDER BY ride_name ASC, created_at ASC
         ';
 
@@ -97,12 +97,12 @@ class DbRideWait
             SELECT
                 ride_status,
                 CASE WHEN ride_status = "OPEN" THEN wait_time ELSE "" END AS wait_time,
-                DATE_FORMAT(DATE_SUB(created_at, INTERVAL 5 HOUR), "%a %b %e, %l:%i%p") AS formatted_created_at
+                DATE_FORMAT(DATE_SUB(created_at, INTERVAL 4 HOUR), "%a %b %e, %l:%i%p") AS formatted_created_at
             FROM ride_waits
             WHERE created_at BETWEEN
-                (SELECT MIN(created_at) FROM ride_waits WHERE DATE(DATE_SUB(created_at, INTERVAL 5 HOUR)) = DATE(:date) AND ride_status = "OPEN")
+                (SELECT MIN(created_at) FROM ride_waits WHERE DATE(DATE_SUB(created_at, INTERVAL 4 HOUR)) = DATE(:date) AND ride_status = "OPEN")
                 AND
-                (SELECT MAX(created_at) FROM ride_waits WHERE DATE(DATE_SUB(created_at, INTERVAL 5 HOUR)) = DATE(:date) AND ride_status = "OPEN")
+                (SELECT MAX(created_at) FROM ride_waits WHERE DATE(DATE_SUB(created_at, INTERVAL 4 HOUR)) = DATE(:date) AND ride_status = "OPEN")
             AND ride_name = :ride_name
             ORDER BY ride_name ASC, created_at ASC
         ';
@@ -116,7 +116,7 @@ class DbRideWait
     public function getAvailableDates()
     {
         $sql = '
-            SELECT DISTINCT DATE_FORMAT(DATE_SUB(created_at, INTERVAL 5 HOUR), "%Y-%m-%d") AS formatted_created_at
+            SELECT DISTINCT DATE_FORMAT(DATE_SUB(created_at, INTERVAL 4 HOUR), "%Y-%m-%d") AS formatted_created_at
             FROM ride_waits
             ORDER BY formatted_created_at DESC
         ';
